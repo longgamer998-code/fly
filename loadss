@@ -1,0 +1,20 @@
+-- [[ Switch Hub - Fly Only Loader ]]
+local function safeLoad(moduleName, githubPath)
+    local url = "https://raw.githubusercontent.com/longgamer998-code/long/refs/heads/main/" .. githubPath
+    local success, content = pcall(game.HttpGet, game, url)
+    
+    if success and content and not content:find("404: Not Found") then
+        local func, err = loadstring(content)
+        if func then
+            print("✓ [Switch Hub] Loaded: " .. moduleName)
+            return func()
+        else
+            warn("❌ Syntax Error in " .. moduleName .. ": " .. err)
+        end
+    else
+        error("❌ Connection Error: " .. moduleName)
+    end
+end
+
+-- Chỉ load duy nhất module Fly
+safeLoad("Fly System", "Fly.lua")
