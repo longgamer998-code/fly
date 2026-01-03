@@ -1,17 +1,15 @@
--- [[ Switch Hub - Fly Only Loader ]]
+-- [[ Switch Hub - Fly Loader ]]
 local baseUrl = "https://raw.githubusercontent.com/longgamer998-code/long/refs/heads/main/"
 
--- Tải và chạy module Fly trực tiếp từ GitHub
 local function loadFly()
-    local success, content = pcall(function()
-        return game:HttpGet(baseUrl .. "Fly.lua")
-    end)
+    -- Kết hợp baseUrl với tên file Fly.lua
+    local success, content = pcall(game.HttpGet, game, baseUrl .. "Fly.lua")
     
-    if success then
-        loadstring(content)()
-        print("✓ [Switch Hub] Fly System Loaded!")
+    if success and content and not content:find("404") then
+        loadstring(content)() -- Chạy code Fly
+        print("✓ [Switch Hub] Fly System Loaded Successfully!")
     else
-        warn("❌ Không thể tải Fly.lua từ GitHub!")
+        warn("❌ Lỗi: Không thể tải Fly.lua từ GitHub")
     end
 end
 
